@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trips</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/styles.css"> <!-- Vos styles personnalisés -->
+</head>
+<body>
+
+<!-- Barre de navigation -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container">
+    <a class="navbar-brand" href="/">TravelApp</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/login" th:href="@{/login}">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/register" th:href="@{/register}">Register</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/trips" th:href="@{/trips}">Trips</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Contenu principal -->
+<div class="container mt-4">
+  <h1 class="mb-4">List of Trips</h1>
+  <a class="btn btn-primary mb-3" th:href="@{/trips/add}">Add New Trip</a>
+
+  <!-- Tableau des voyages -->
+  <table class="table table-bordered table-striped">
+    <thead class="table-dark">
+    <tr>
+      <th>Destination</th>
+      <th>Start Date</th>
+      <th>End Date</th>
+      <th>Budget</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="trip : ${trips}">
+      <td th:text="${trip.destination}">Destination</td>
+      <td th:text="${trip.startDate}">Start Date</td>
+      <td th:text="${trip.endDate}">End Date</td>
+      <td th:text="${trip.budget}">Budget</td>
+      <td>
+        <a class="btn btn-warning btn-sm" th:href="@{/trips/edit/{id}(id=${trip.id})}">Edit</a>
+        <a class="btn btn-danger btn-sm" th:href="@{/trips/delete/{id}(id=${trip.id})}" onclick="return confirm('Are you sure you want to delete this trip?')">Delete</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
